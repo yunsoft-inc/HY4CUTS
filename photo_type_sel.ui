@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>photo_type_sel</class>
+ <widget class="QMainWindow" name="photo_type_sel">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>100</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1920</width>
+    <height>1080</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>한영4컷</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:rgb(70, 70, 70)</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>-20</y>
+      <width>1911</width>
+      <height>1041</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="leftMargin">
+      <number>200</number>
+     </property>
+     <property name="topMargin">
+      <number>200</number>
+     </property>
+     <property name="rightMargin">
+      <number>200</number>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="spacing">
+        <number>400</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="sel_ai_2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>500</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	
+	font: 87 36pt &quot;Noto Sans KR Black&quot;;
+	background-color: rgb(212, 212, 212);
+	
+	color: rgb(0, 0, 0);
+}
+
+QPushButton:hover{
+	background-color: rgb(222, 222, 222);
+	border-left: rgb(230,230,230);
+	border-right: rgb(230,230,230);
+	border-bottom: rgb(230,230,230);
+
+}
+QPushButton:pressed{
+	background-color: rgb(180, 180, 180);
+	border-left: rgb(230,230,230);
+	border-right: rgb(230,230,230);
+	border-bottom: rgb(230,230,230);
+
+}</string>
+         </property>
+         <property name="text">
+          <string>AI 캐리커쳐 만들기</string>
+         </property>
+         <property name="autoRepeat">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="sel_4cut_2">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>500</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Noto Sans KR Black</family>
+           <pointsize>36</pointsize>
+           <weight>10</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	
+	font: 87 36pt &quot;Noto Sans KR Black&quot;;
+	background-color: rgb(212, 212, 212);
+	
+	color: rgb(0, 0, 0);
+}
+
+QPushButton:hover{
+	background-color: rgb(222, 222, 222);
+	border-left: rgb(230,230,230);
+	border-right: rgb(230,230,230);
+	border-bottom: rgb(230,230,230);
+
+}
+QPushButton:pressed{
+	background-color: rgb(180, 180, 180);
+	border-left: rgb(230,230,230);
+	border-right: rgb(230,230,230);
+	border-bottom: rgb(230,230,230);
+
+}</string>
+         </property>
+         <property name="text">
+          <string>4컷 사진 촬영하기</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1920</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
