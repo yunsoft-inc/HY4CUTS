@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HY4CUTS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        div {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #image-container {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>한영네컷</h1>
+    <div>이 서비스는 한맥제 이후 한달 간 서비스 됩니다.</div>
+    <div>(그 전에 종료 될 수도 있음.)</div>
+    <div>한영네컷 관련 문의 : 20423 윤재웅 (yunjwjw070910@naver.com)</div>
+    <button id="download-button">이미지 다운로드</button>
+    <div id="image-container">
+        <img id="image" alt="이미지를 불러오는 중입니다...">
+    </div>
+    <br>
+    
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+        import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js';
+        import { getStorage } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCz83A9wGh8o0Sdc1AsTH9Y_WsuYPa3MdM",
+            authDomain: "hy4cuts.firebaseapp.com",
+            databaseURL: "https://hy4cuts-default-rtdb.firebaseio.com",
+            projectId: "hy4cuts",
+            storageBucket: "hy4cuts.appspot.com",
+            messagingSenderId: "412224503612",
+            appId: "1:412224503612:web:5c9d64dfab7fa60c51a839",
+            measurementId: "G-VQZBMB82LC"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const storage = getStorage(app);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const paramValue = urlParams.get('key');
+
+        if (paramValue) {
+            console.log('Parameter Value:', paramValue); // 파라미터 값 확인
+
+            // 정확한 경로로 데이터 가져오기
+            const dbRef = ref(database, `/images/${paramValue}`);
+            get(dbRef).then((snapshot) => {
+                const data = snapshot.val();
+                console.log('Data from Firebase:', data);  // 데이터를 콘솔에 출력
+
+                if (data && data.url) {
+                    const imageUrl = data.url;
+
+                    // 이미지 표시
+                    const imgElement = document.getElementById('image');
+                    imgElement.src = imageUrl;
+
+                    // 다운로드 버튼 클릭 이벤트
+                    const downloadButton = document.getElementById('download-button');
+                    downloadButton.addEventListener('click', () => {
+                        const a = document.createElement('a');
+                        a.href = imageUrl;
+                        a.download = 'image.png';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    });
+                } else {
+                    alert('이미지를 찾을 수 없습니다.');
+                }
+            }).catch((error) => {
+                console.error('데이터베이스에서 데이터를 가져오는 중 오류 발생:', error);
+            });
+        } else {
+            alert('URL 파라미터에 키 값이 필요합니다.');
+        }
+    </script>
+
+</body>
+</html>
