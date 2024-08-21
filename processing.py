@@ -1,8 +1,4 @@
 '''
-주식회사 아 코딩하기 싫다㈜
-
-코드 한 줄 평 : 코딩하기 싫다. 그냥 싫다. 왜 오류가 나지? 거지같다.
-
 파이어 베이스 realtime db console : https://console.firebase.google.com/u/0/project/hy4cuts/database/hy4cuts-default-rtdb/data?hl=ko
 파이어 베이스 storage console : https://console.firebase.google.com/u/0/project/hy4cuts/storage/hy4cuts.appspot.com/files?hl=ko
 
@@ -28,12 +24,11 @@ firebase login, firebase init
 firebase deploy
 '''
 
-
 import firebase_admin
 from firebase_admin import credentials, storage, db
 import random
 import string
-from PIL import Image, ImageWin
+from PIL import Image, ImageWin, ImageFont, ImageDraw
 import os
 import win32print
 import win32ui
@@ -71,45 +66,6 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://hy4cuts-default-rtdb.firebaseio.com/'
 })
  
-print_name = win32print.GetDefaultPrinter()
-print("Print dev : " + print_name)
-
-if os.path.exists(file_path):
-    os.remove(file_path)
-    
-foreground = [""] * 4
-resize_fore = [""] * 4
-line = []
-
-#이미지 파일 오픈 
-f = open(txt_file, 'r')
-
-line_raw = f.read()
-line = line_raw.split("\n")
-for i in range(0,6):
-    line[i] = line[i].strip()
-
-print(line[5])
-
-background = Image.open(line[0])
-for i in range(0,4):
-    foreground[i] = Image.open(line[i+1])
-
-
-#합성할 배경 이미지를 위의 파일 사이즈로 resize
-for i in range(0,4):
-    resize_fore[i] = foreground[i].resize((x_size, y_size))
-
-#이미지 합성 
-for i in range(0,4):
-    background.paste(resize_fore[i], (default_x_offset, default_y_offset + (y_size+gap)*i))
-
-#합성한 이미지 파일 보여주기 
-background.save(file_path)
-f.close()
-
-print("IMG SEQ DONE!")
-
 def print_image(image_path, copies):
     # 기본 프린터를 가져옵니다.
     printer_name = win32print.GetDefaultPrinter()
@@ -183,12 +139,73 @@ def qrgen(url, save_path):
     img.save(save_path)
     print("Gen QR SUCCESS")
 
+def loadfont(fontsize=50):
+	# ttf파일의 경로를 지정합니다.
+	ttf = 'font.ttf'
+	return ImageFont.truetype(font=ttf, size=fontsize)
+    #size : in pixels
+
+
+
+ 
+print_name = win32print.GetDefaultPrinter()
+print("Print dev : " + print_name)
+
+if os.path.exists(file_path):
+    os.remove(file_path)
+    
+foreground = [""] * 4
+resize_fore = [""] * 4
+line = []
+
+#이미지 파일 오픈 
+f = open(txt_file, 'r')
+
+line_raw = f.read()
+line = line_raw.split("\n")
+for i in range(0,6):
+    line[i] = line[i].strip()
+
+print(line[5])
+
+background = Image.open(line[0])
+for i in range(0,4):
+    foreground[i] = Image.open(line[i+1])
+
+
+#합성할 배경 이미지를 위의 파일 사이즈로 resize
+for i in range(0,4):
+    resize_fore[i] = foreground[i].resize((x_size, y_size))
+
+#이미지 합성 
+for i in range(0,4):
+    background.paste(resize_fore[i], (default_x_offset, default_y_offset + (y_size+gap)*i))
+
+current_datetime = datetime.now()
+
+importdate = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+
+titlefontObj = loadfont()
+title_text = importdate
+out_img = ImageDraw.Draw(background)
+out_img.text(xy=(50,1700), text=title_text, fill=(20, 20, 20), font=titlefontObj)
+
+#합성한 이미지 파일 보여주기 
+background.save(file_path)
+f.close()
+
+print("IMG SEQ DONE!")
+
+
 print("Wait Until IMG Gen...")
 time.sleep(0.5)
 
 
 current_datetime = datetime.now()
 datetime_string = current_datetime.strftime("%Y%m%d%H%M%S")
+
+
+
 image_path = file_path
 image_url = upload_image_to_firebase(image_path, datetime_string)
 random_key = save_image_url_to_firebase(image_url)
@@ -209,4 +226,4 @@ print("Wait Final Gen...")
 image_url = upload_image_to_firebase(image_path, datetime_string)
 print("Start Printing SEQ...")
 print("printing img... page : " + list[5])
-print_image('output.png', int(list[5]))  #************* 나중에 다시 킬 것!
+#print_image('output.png', int(list[5]))  #************* 나중에 다시 킬 것!
