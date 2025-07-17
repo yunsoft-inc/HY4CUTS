@@ -1,29 +1,3 @@
-'''
-파이어 베이스 realtime db console : https://console.firebase.google.com/u/0/project/hy4cuts/database/hy4cuts-default-rtdb/data?hl=ko
-파이어 베이스 storage console : https://console.firebase.google.com/u/0/project/hy4cuts/storage/hy4cuts.appspot.com/files?hl=ko
-
-CHATGPT IS GOD
-
-firebase hosting
-
-web 폴더 들어가서 cmd 관리자 권한으로 실행할 것!!
-
-npm 설치, npm install -g firebase-tools
-firebase login, firebase init
-? Please select an option: 
-> Use an existing project, 존재하는 프로젝트를 사용하겠다
-? Select a default Firebase project for this directory:
-> projectName, 진행할 프로젝트 선택!
-? What do you want to use as your public directory?
-> dist, 배포할 폴더명으로 dist
-? Configure as a single-page-app (rewrite all urls to /index.html)? (y/N)
-> N, spa(single-page-app)으로 설정할 것인가? 
-? Set up automatic builds and deploys with Github?(y/N)
-> N, build와 deply(배포)할 때 github에 자동적으로 셋업 할 것 인가?
-
-firebase deploy
-'''
-
 import firebase_admin
 from firebase_admin import credentials, storage, db
 import random
@@ -36,7 +10,7 @@ import time
 from datetime import datetime
 import qrcode
 
-url_base = "https://hy4cuts.web.app/"
+url_base = "myurl"
 
 random_key = ""
 
@@ -62,8 +36,8 @@ qr_y = 50
 # Firebase 초기화
 cred = credentials.Certificate("auth.json")
 firebase_admin.initialize_app(cred, {
-    'storageBucket': 'hy4cuts.appspot.com',
-    'databaseURL': 'https://hy4cuts-default-rtdb.firebaseio.com/'
+    'storageBucket': 'my.appspot.com',
+    'databaseURL': 'https://my-default-rtdb.firebaseio.com/'
 })
  
 def print_image(image_path, copies):
