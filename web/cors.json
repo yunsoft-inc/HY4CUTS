@@ -1,7 +1,0 @@
-[
-    {
-      "origin": ["https://hy4cuts.web.app"],
-      "method": ["GET"],
-      "maxAgeSeconds": 3600
-    }
-]
